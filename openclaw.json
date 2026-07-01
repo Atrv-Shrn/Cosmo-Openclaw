@@ -6,8 +6,8 @@
       },
       "workspace": "/home/<USER>/.openclaw/workspace",
       "heartbeat": {
-        "every": "30m",
-        "activeHours": { "start": "00:00", "end": "24:00", "timezone": "<TIMEZONE>" },
+        "every": "<HEARTBEAT_INTERVAL>",
+        "activeHours": { "start": "<ACTIVE_START>", "end": "<ACTIVE_END>", "timezone": "<TIMEZONE>" },
         "isolatedSession": true,
         "target": "telegram"
       }

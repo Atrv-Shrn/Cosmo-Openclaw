@@ -3,7 +3,7 @@
 - **Name:** <OWNER_NAME>
 - **What to call them:** <OWNER_NAME>
 - **Pronouns:** _(TBD)_
-- **Timezone:** Asia/Kolkata
+- **Timezone:** <TIMEZONE>
 - **Notes:** Founder & CEO of <STARTUP>
 
 ## Context

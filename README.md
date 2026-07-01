@@ -181,6 +181,9 @@ Everything personal or secret is a placeholder. Replace each before deploying:
 | `<USER>` | Host username in the workspace path |
 | `<PROVIDER>/<MODEL>` | The model every session and sub-agent runs on |
 | `<GATEWAY_TOKEN>` | Gateway auth token (generate your own) |
+| `<TIMEZONE>` | Your timezone (e.g. `Asia/Kolkata`, `America/New_York`) |
+| `<HEARTBEAT_INTERVAL>` | How often the heartbeat fires (e.g. `30m`) |
+| `<ACTIVE_START>` / `<ACTIVE_END>` | Hours the heartbeat may run (e.g. `00:00` / `24:00`) |
 
 Real secrets never live in git: copy `workspace/.env.example` → `workspace/.env` (git-ignored) and
 fill it in.

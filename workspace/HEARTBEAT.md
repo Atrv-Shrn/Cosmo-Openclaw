@@ -1,7 +1,7 @@
 # HEARTBEAT.md  (proactive loop; you may edit this; add items over time)
 
 ## Settings (edit these)
-- Timezone: Asia/Kolkata
+- Timezone: <TIMEZONE>
 - Quiet hours: 11:00 pm to 5:00 AM
   During quiet hours, only an urgent alert may interrupt. Everything else waits.
 
@@ -18,5 +18,5 @@ Actionable, not already raised, worth a human's attention.
 
 ## Adding a check
 To add a recurring check (site health, a daily digest, a sync job, …), run
-skills/add-recurring-job — it picks the mechanism (a tick here, or an OpenClaw cron job) and wires
+skills/add-recurring-job. It picks the mechanism (a tick here, or an OpenClaw cron job) and wires
 it in for you. Keep silence the default.

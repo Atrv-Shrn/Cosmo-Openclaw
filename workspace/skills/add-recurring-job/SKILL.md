@@ -30,7 +30,7 @@ cron jobs that fire on the same interval — batch those into one heartbeat tick
 ## Cron path (once a day / set time)
 1. If the job is non-trivial, write skills/<name>/SKILL.md for it first.
 2. Create the job on the box:
-   `openclaw cron add --name "<name>" --cron "<expr>" --tz Asia/Kolkata --session isolated --message "<what to do, e.g. run skills/<name>>" --announce`
+   `openclaw cron add --name "<name>" --cron "<expr>" --tz <TIMEZONE> --session isolated --message "<what to do, e.g. run skills/<name>>" --announce`
    - `<expr>` is a 5-field cron string: `"0 5 * * *"` = 05:00 daily, `"0 9 * * 1"` = 09:00 Mondays.
    - `--session isolated` gives a fresh, context-light run. Drop `--announce` if it should stay
      quiet unless it has something to say.
