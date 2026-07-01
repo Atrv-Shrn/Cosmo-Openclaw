@@ -111,6 +111,33 @@ generated in a single prompt** with the `skill-creator` skill, and each worked f
 Cosmo was built to be deployed on an **AWS EC2 instance**, but it runs on **any Ubuntu machine**. The
 cloud box is entirely optional.
 
+## Installation
+
+The cleanest way to apply Cosmo is on a **fresh OpenClaw install** (a clean `~/.openclaw/`), so its
+config and workspace drop in without colliding with an existing setup.
+
+**Prerequisites**
+
+- OpenClaw installed, with a runnable gateway ([openclaw.ai](https://openclaw.ai)).
+- A model provider configured for the `<PROVIDER>/<MODEL>` you pick (e.g. a local Ollama daemon, or
+  any provider OpenClaw supports).
+- The Claude Code CLI installed and authed, if you want Cosmo to delegate code changes to a
+  sub-agent.
+
+**Steps**
+
+1. **Drop the config blocks into `openclaw.json`.** Open `~/.openclaw/openclaw.json` and place each
+   block from this repo's `openclaw.json` where it belongs (`agents.defaults`, `gateway`, `plugins`,
+   `session`, `tools`). On a fresh install you can use it almost as is.
+2. **Fill in the placeholders.** Search the files for `<...>` and swap each for your real value
+   (`<STARTUP>`, `<OWNER_NAME>`, `<SITE_URL>`, `<USER>`, `<PROVIDER>/<MODEL>`, `<GATEWAY_TOKEN>`, …).
+   Full list in [Configuration](#configuration).
+3. **Copy the workspace in.** Copy everything under `workspace/` into `~/.openclaw/workspace/`. That's
+   Cosmo's whole brain: its constitution, memory, and skills.
+
+Start the gateway and you're live. On first run Cosmo walks through `BOOTSTRAP.md` to set its
+identity, then you delete that file.
+
 ---
 
 ## Repo structure
