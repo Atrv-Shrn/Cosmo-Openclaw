@@ -1,4 +1,4 @@
-# 🌌 Cosmo — the self-evolving AI agent for startups
+# 🌌 Cosmo: the self-evolving AI agent for startups
 
 > An internal ops agent that lives in your team's group chat, watches everything, and acts on it:
 > building its own tools, fixing your site, and reporting back, around the clock.
