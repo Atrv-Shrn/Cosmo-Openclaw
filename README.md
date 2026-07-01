@@ -1,23 +1,23 @@
 # 🌌 Cosmo — the self-evolving AI agent for startups
 
-> An internal ops agent that lives in your team's chat, watches everything, and acts on it —
+> An internal ops agent that lives in your team's group chat, watches everything, and acts on it:
 > building its own tools, fixing your site, and reporting back, around the clock.
 
-**Cosmo is a self-evolving internal ops agent for startups, built on
-[OpenClaw](https://openclaw.ai).** It lives in Telegram, stays mostly silent, and runs a proactive
-heartbeat every 30 minutes — quietly keeping watch over the whole company. It edits its own
+**Cosmo is a proactive, self-evolving internal ops agent for startups, built on
+[OpenClaw](https://openclaw.ai).** It lives in the team's group chat, stays mostly silent, and runs a
+proactive heartbeat every 30 minutes, quietly keeping watch over the whole company. It edits its own
 behavioral memory as it learns how your team works, and delegates every code change to a Claude Code
 sub-agent. Point it at your startup and it becomes the operator underneath it: monitoring, fixing,
-digesting, and proposing — without being asked.
+digesting, and proposing, without being asked.
 
-I built Cosmo to be the **central AI agent for a startup** — one that listens to everything happening
+I built Cosmo to be the **central AI agent for a startup**, one that listens to everything happening
 in the company and acts on it.
 
 ## How it fits together
 
 ```mermaid
 flowchart LR
-    Team["Team · Telegram"] <--> GW["OpenClaw Gateway"]
+    Team["Team · group chat"] <--> GW["OpenClaw Gateway"]
     GW <--> Agent["Cosmo<br/>(self-evolving agent)"]
     Agent -->|"all code changes"| CC["Claude Code<br/>sub-agent"]
     Agent <--> WS[("workspace/<br/>memory · skills · scripts")]
@@ -25,7 +25,7 @@ flowchart LR
     Agent <-->|"equips itself"| Ext["MCP servers · ClawHub<br/>· Context7"]
 ```
 
-The agent itself never edits repo code — it reads, decides, and hands the actual change to a Claude
+The agent itself never edits repo code. It reads, decides, and hands the actual change to a Claude
 Code sub-agent. Everything Cosmo *is* lives in its `workspace/`: its constitution, its memory, and
 its skills.
 
@@ -33,12 +33,12 @@ its skills.
 
 Cosmo doesn't stop at the edge of what it can already do:
 
-- **When Cosmo can't do a task, it builds itself a script or tool** so that it can — permanent and
-  reusable the next time it comes up.
-- **When Cosmo doesn't know *how* to do something, it equips itself** — installing MCP servers and
-  skills from ClawHub, and referencing Context7 for up-to-date answers (if you've configured it) —
-  so it can get the job done instead of giving up.
-- **Cosmo builds its own custom workflows** — high-quality, repeatable procedures it can run over and
+- **When Cosmo can't do a task, it builds itself a script or tool** so that it can. The tool is
+  permanent and reusable the next time it comes up.
+- **When Cosmo doesn't know *how* to do something, it equips itself**, installing MCP servers and
+  skills from ClawHub, and referencing Context7 for up-to-date answers (if you've configured it), so
+  it can get the job done instead of giving up.
+- **Cosmo builds its own custom workflows**, high-quality repeatable procedures it can run over and
   over, triggered either by its heartbeat or by cron jobs.
 
 ```mermaid
@@ -52,7 +52,7 @@ flowchart LR
 
 Because Cosmo is built for startups, it keeps track of the **entire team's preferences** so it does
 things exactly the way the team wants. Its hard rules and standing instructions live in
-`INSTRUCTIONS.md`, which it reads every session and appends to whenever it's corrected — this is how
+`INSTRUCTIONS.md`, which it reads every session and appends to whenever it's corrected. This is how
 it *self-evolves*.
 
 It's also careful about what it remembers. **Cosmo actively filters for startup-related facts and
@@ -70,7 +70,7 @@ flowchart TB
 ```
 
 And it's proactive: **every heartbeat, Cosmo thinks about what could be improved or added** in the
-startup, and brings those proposals to the team — while otherwise staying silent by default.
+startup, and brings those proposals to the team, while otherwise staying silent by default.
 
 ```mermaid
 flowchart TB
@@ -84,39 +84,39 @@ flowchart TB
 
 Cosmo is only as good as what it knows, so I fed it everything:
 
-- **Repos & databases as context** — dedicated folders hold working copies of the startup's repos and
+- **Repos & databases as context.** Dedicated folders hold working copies of the startup's repos and
   read-only copies of its databases, so Cosmo always has the real code and data to reason over.
-- **The team's Telegram** — add Cosmo to the group chat and it reads along, always aware of the
+- **The team's group chat.** Add Cosmo to your Telegram group and it reads along, always aware of the
   current status of the startup.
-- **RAG pipelines (recommended)** — connecting the startup's RAG pipelines to Cosmo is what really
+- **RAG pipelines (recommended).** Connecting the startup's RAG pipelines to Cosmo is what really
   makes it the base layer of the company.
 
 ## What I've used Cosmo for
 
-I've run Cosmo for real, across a range of jobs — and each one was built as a **custom skill or
-workflow, generated in a single prompt** with the `skill-creator` skill. Each worked flawlessly:
+I've run Cosmo for real, across a range of jobs. Each one was built as a **custom skill or workflow,
+generated in a single prompt** with the `skill-creator` skill, and each worked flawlessly:
 
-- **Website health monitoring** — checks my startup's website every heartbeat.
-- **Daily digest** — a cron job that sends me the current status of the startup every morning.
-- **Autonomous website repair** — when the site goes down, Cosmo spins up a Claude Code instance with
+- **Website health monitoring.** Checks my startup's website every heartbeat.
+- **Daily digest.** A cron job that sends me the current status of the startup every morning.
+- **Autonomous website repair.** When the site goes down, Cosmo spins up a Claude Code instance with
   a custom workflow to diagnose, fix, review, and redeploy it, end to end.
-- **Deployment monitoring** — watches and manages the website's deployments on Vercel.
+- **Deployment monitoring.** Watches and manages the website's deployments on Vercel.
 
 > These are documented here as a record of what the stack can do. They're kept out of this
-> generalized config because they're wired to my own infrastructure — but going from *"I wish it
-> could do X"* to a permanent, repeatable skill was **one sentence each.**
+> generalized config because they're wired to my own infrastructure. But going from *"I wish it could
+> do X"* to a permanent, repeatable skill was **one sentence each.**
 
 ## Deployment
 
-Cosmo was built to be deployed on an **AWS EC2 instance**, but it runs on **any Ubuntu machine** —
-the cloud box is entirely optional.
+Cosmo was built to be deployed on an **AWS EC2 instance**, but it runs on **any Ubuntu machine**. The
+cloud box is entirely optional.
 
 ---
 
 ## Repo structure
 
-This repository is the **generalized, shareable config** behind Cosmo — every personal or secret
-value is a placeholder. For the full contents of every file in one place, see **[`SPEC.md`](./SPEC.md)**.
+This repository is the **generalized, shareable config** behind Cosmo. Every personal or secret value
+is a placeholder. For the full contents of every file in one place, see **[`SPEC.md`](./SPEC.md)**.
 
 ```
 .
@@ -134,7 +134,7 @@ value is a placeholder. For the full contents of every file in one place, see **
     ├── HEARTBEAT.md       the proactive loop
     ├── TOOLS.md           local environment notes
     ├── BOOTSTRAP.md       first-run identity script (delete after setup)
-    ├── .env.example       template for secrets (copy to .env — never committed)
+    ├── .env.example       template for secrets (copy to .env, never committed)
     ├── skills/            the agent's core skills
     ├── repos/             working copies of the real repos (contents git-ignored)
     ├── db/                disposable production DB dump (contents git-ignored)
@@ -143,7 +143,7 @@ value is a placeholder. For the full contents of every file in one place, see **
 
 ## Configuration
 
-Everything personal or secret is a placeholder — replace each before deploying:
+Everything personal or secret is a placeholder. Replace each before deploying:
 
 | Placeholder | Meaning |
 |---|---|
@@ -154,7 +154,7 @@ Everything personal or secret is a placeholder — replace each before deploying
 | `<VERCEL_PROJECT>` | Vercel project name |
 | `<USER>` | Host username in the workspace path |
 | `<PROVIDER>/<MODEL>` | The model every session and sub-agent runs on |
-| `<GATEWAY_TOKEN>` | Gateway auth token — generate your own |
+| `<GATEWAY_TOKEN>` | Gateway auth token (generate your own) |
 
 Real secrets never live in git: copy `workspace/.env.example` → `workspace/.env` (git-ignored) and
 fill it in.
