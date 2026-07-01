@@ -1,0 +1,43 @@
+{
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "<PROVIDER>/<MODEL>"
+      },
+      "workspace": "/home/<USER>/.openclaw/workspace",
+      "heartbeat": {
+        "every": "30m",
+        "activeHours": { "start": "00:00", "end": "24:00", "timezone": "<TIMEZONE>" },
+        "isolatedSession": true,
+        "target": "telegram"
+      }
+    }
+  },
+  "gateway": {
+    "auth": {
+      "mode": "token",
+      "token": "<GATEWAY_TOKEN>"
+    },
+    "bind": "loopback",
+    "mode": "local",
+    "port": 18789,
+    "nodes": {
+      "denyCommands": ["camera.snap", "screen.record", "sms.send"]
+    }
+  },
+  "plugins": {
+    "entries": {
+      "memory-core": {
+        "config": {
+          "dreaming": { "enabled": true }
+        }
+      }
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "tools": {
+    "profile": "coding"
+  }
+}
