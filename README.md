@@ -116,12 +116,11 @@ cloud box is entirely optional.
 ## Repo structure
 
 This repository is the **generalized, shareable config** behind Cosmo. Every personal or secret value
-is a placeholder. For the full contents of every file in one place, see **[`SPEC.md`](./SPEC.md)**.
+is a placeholder.
 
 ```
 .
 ├── README.md            ← you are here
-├── SPEC.md              ← every file's full contents, in one doc
 ├── openclaw.json        ← engine config (model, heartbeat timer, gateway)
 └── workspace/           ← copied into ~/.openclaw/workspace/
     ├── AGENTS.md          constitution (loaded every session + into every sub-agent)

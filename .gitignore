@@ -16,3 +16,6 @@ workspace/db/*
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+
+# Generated reference doc (kept local, not published)
+SPEC.md
