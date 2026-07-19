@@ -7,8 +7,10 @@
 [OpenClaw](https://openclaw.ai).** It lives in the team's group chat, stays mostly silent, and runs a
 proactive heartbeat every 30 minutes, quietly keeping watch over the whole company. It edits its own
 behavioral memory as it learns how your team works, and delegates every code change to a Claude Code
-sub-agent. Point it at your startup and it becomes the operator underneath it: monitoring, fixing,
-digesting, and proposing, without being asked.
+sub-agent. Since v1.1.0 it also commands a **roster of 11 registered specialist sub-agents** —
+marketing, sales, compliance, finance, support, research, data, devops and more — each a complete
+markdown-defined agent of its own. Point it at your startup and it becomes the operator underneath
+it: monitoring, fixing, digesting, and proposing, without being asked.
 
 I built Cosmo to be the **central AI agent for a startup**, one that listens to everything happening
 in the company and acts on it.
@@ -20,14 +22,44 @@ flowchart LR
     Team["Team · group chat"] <--> GW["OpenClaw Gateway"]
     GW <--> Agent["Cosmo<br/>(self-evolving agent)"]
     Agent -->|"all code changes"| CC["Claude Code<br/>sub-agent"]
+    Agent -->|"non-code work<br/>(spawn by id)"| Roster["11 registered specialists<br/>subagents/&lt;name&gt;/"]
     Agent <--> WS[("workspace/<br/>memory · skills · scripts")]
     Agent -->|"reads for context"| Ctx[("repos/ · db/<br/>code + data")]
     Agent <-->|"equips itself"| Ext["MCP servers · ClawHub<br/>· Context7"]
 ```
 
 The agent itself never edits repo code. It reads, decides, and hands the actual change to a Claude
-Code sub-agent. Everything Cosmo *is* lives in its `workspace/`: its constitution, its memory, and
-its skills.
+Code sub-agent. Non-code work fans out to a registered specialist instead. Everything Cosmo *is*
+lives in its `workspace/`: its constitution, its memory, and its skills.
+
+## The sub-agent roster
+
+Cosmo doesn't do everything itself. Eleven **complete specialist agents** live in
+`workspace/subagents/<name>/` — each one a full OpenClaw agent with its own constitution, soul,
+pre-named identity, behavioral memory, heartbeat file, and `skills/` folder — and each is
+**registered** in `openclaw.json` (`agents.list[]`), so Cosmo spawns them by id and their workspace
+loads automatically:
+
+| Specialist | Mandate |
+|---|---|
+| `marketing-campaign` | plan & draft campaigns, positioning, launch plans |
+| `content-writer` | blog, social, newsletter, landing copy drafts |
+| `sales-lead-scraper` | find & enrich outbound leads |
+| `investor-relations` | investor updates, KPI summaries, fundraising prep |
+| `compliance` | legal / privacy / policy checks & flags |
+| `finance-ops` | burn, runway, invoices, budgets |
+| `recruiting` | source & screen candidates, JDs & outreach drafts |
+| `customer-support` | triage tickets, draft replies |
+| `market-research` | competitor & market sweeps |
+| `data-analyst` | reason over `db/` dumps & metrics |
+| `devops` | run commands & small ops scripts — never repo code |
+
+Common skills stay in the shared `workspace/skills/` (exposed to every agent once, via
+`skills.load.extraDirs`); each specialist's own `skills/` holds only its specialized procedures and
+wins on a name clash. Every specialist ships with its **heartbeat off** — you enable the ones you
+want during first-run setup (`BOOTSTRAP.md`) or later by hand. And the code boundary holds: a
+specialist never edits repo code and never spawns Claude Code; anything code-shaped goes back
+through Cosmo.
 
 ## Self-evolving, self-extending
 
@@ -127,16 +159,19 @@ config and workspace drop in without colliding with an existing setup.
 **Steps**
 
 1. **Drop the config blocks into `openclaw.json`.** Open `~/.openclaw/openclaw.json` and place each
-   block from this repo's `openclaw.json` where it belongs (`agents.defaults`, `gateway`, `plugins`,
-   `session`, `tools`). On a fresh install you can use it almost as is.
+   block from this repo's `openclaw.json` where it belongs (`agents.defaults`, `agents.list` — the
+   registered roster — `skills`, `gateway`, `plugins`, `session`, `tools`). On a fresh install you
+   can use it almost as is.
 2. **Fill in the placeholders.** Search the files for `<...>` and swap each for your real value
    (`<STARTUP>`, `<OWNER_NAME>`, `<SITE_URL>`, `<USER>`, `<PROVIDER>/<MODEL>`, `<GATEWAY_TOKEN>`, …).
    Full list in [Configuration](#configuration).
 3. **Copy the workspace in.** Copy everything under `workspace/` into `~/.openclaw/workspace/`. That's
    Cosmo's whole brain: its constitution, memory, and skills.
 
-Start the gateway and you're live. On first run Cosmo walks through `BOOTSTRAP.md` to set its
-identity, then you delete that file.
+Start the gateway and you're live. On first run Cosmo walks through `BOOTSTRAP.md` — a
+self-contained guided installer that fills every placeholder with you, sets identity, lets you pick
+which specialists run (and whose heartbeats turn on), and ends with a short tutorial — then it
+deletes that file.
 
 ---
 
@@ -147,8 +182,9 @@ is a placeholder.
 
 ```
 .
-├── README.md            ← you are here
-├── openclaw.json        ← engine config (model, heartbeat timer, gateway)
+├── README.md            ← you are here (the only README in the repo)
+├── openclaw.json        ← engine config (model, heartbeat, gateway, registered agents)
+├── docs/                ← version specs + PRD
 └── workspace/           ← copied into ~/.openclaw/workspace/
     ├── AGENTS.md          constitution (loaded every session + into every sub-agent)
     ├── SOUL.md            persona & values
@@ -159,9 +195,10 @@ is a placeholder.
     ├── PROPOSALS.md       the proposals ledger (data only)
     ├── HEARTBEAT.md       the proactive loop
     ├── TOOLS.md           local environment notes
-    ├── BOOTSTRAP.md       first-run identity script (delete after setup)
+    ├── BOOTSTRAP.md       first-run guided installer + tutorial (delete after setup)
     ├── .env.example       template for secrets (copy to .env, never committed)
-    ├── skills/            the agent's core skills
+    ├── skills/            common skills, shared with every agent (one copy)
+    ├── subagents/         the 11 registered specialists — 8 markdown files + skills/ each
     ├── repos/             working copies of the real repos (contents git-ignored)
     ├── db/                disposable production DB dump (contents git-ignored)
     └── scripts/           permanent tools the agent builds for itself
@@ -177,7 +214,6 @@ Everything personal or secret is a placeholder. Replace each before deploying:
 | `<OWNER_NAME>` | Who the agent reports to |
 | `<SITE_URL>` | The site URL (used by custom monitoring skills) |
 | `<PRODUCT_REPO>` / `<WEBSITE_REPO>` | Repo names under `repos/` |
-| `<VERCEL_PROJECT>` | Vercel project name |
 | `<USER>` | Host username in the workspace path |
 | `<PROVIDER>/<MODEL>` | The model every session and sub-agent runs on |
 | `<GATEWAY_TOKEN>` | Gateway auth token (generate your own) |
@@ -187,6 +223,27 @@ Everything personal or secret is a placeholder. Replace each before deploying:
 
 Real secrets never live in git: copy `workspace/.env.example` → `workspace/.env` (git-ignored) and
 fill it in.
+
+## Recommended MCP servers
+
+Cosmo intentionally ships **no** MCP servers: they're specific to your accounts and stack, and a
+bad one can crash the gateway. Install your own into `openclaw.json` (`mcp.servers`) — that file is
+the source of truth. What tends to pay off, per agent:
+
+| Agent | Recommended MCPs (install your own) | Enables |
+|---|---|---|
+| Cosmo (main) | filesystem, git, fetch/web, Context7, a deploy MCP (e.g. Vercel) | context + self-extension |
+| `marketing-campaign` | LinkedIn, X/Twitter, Canva | post & design campaigns |
+| `content-writer` | CMS/Notion, Google Docs | draft & publish copy |
+| `sales-lead-scraper` | LinkedIn/Apollo, web search | find & enrich leads |
+| `investor-relations` | Google Slides/Sheets, email | decks & updates |
+| `compliance` | web search, legal/policy DB | check & flag |
+| `finance-ops` | Stripe, accounting, Sheets | burn / runway / invoices |
+| `recruiting` | LinkedIn, ATS, email | source & outreach |
+| `customer-support` | Zendesk/Intercom, Gmail | triage & reply |
+| `market-research` | web search, X/Twitter | market / competitor sweeps |
+| `data-analyst` | Postgres/warehouse, Airtable | reason over data |
+| `devops` | GitHub, Docker, cloud CLI, monitoring | run ops, watch infra |
 
 ---
 

@@ -12,6 +12,8 @@ the stuff unique to this machine. Keep it short; update it as you learn your way
 Don't keep a hand-written list here — it goes stale as tools come and go. Look them up live:
 - MCP servers + plugins: in openclaw.json (`mcp.servers` and `plugins.entries`). That is the source of truth.
 - CLIs: on PATH. `command -v <name>` tells you if one exists (e.g. claude, gh, pg_dump).
+- Sub-agents: complete specialist agents in subagents/<name>/ (own full file set + skills/),
+  registered in openclaw.json — spawn the matching one by id for non-code tasks.
 - Skills: in skills/ (your own procedures); third-party ClawHub ones in skills/clawhub/.
 - The one rule that never changes: repo code is edited only by the Claude Code sub-agent (`claude`), never by you directly.
 

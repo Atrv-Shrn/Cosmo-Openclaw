@@ -11,6 +11,93 @@
         "isolatedSession": true,
         "target": "telegram"
       }
+    },
+    "list": [
+      {
+        "id": "main",
+        "name": "Cosmo",
+        "default": true,
+        "workspace": "/home/<USER>/.openclaw/workspace",
+        "heartbeat": { "every": "<HEARTBEAT_INTERVAL>" },
+        "subagents": {
+          "allowAgents": [
+            "marketing-campaign",
+            "content-writer",
+            "sales-lead-scraper",
+            "investor-relations",
+            "compliance",
+            "finance-ops",
+            "recruiting",
+            "customer-support",
+            "market-research",
+            "data-analyst",
+            "devops"
+          ],
+          "maxConcurrent": 3,
+          "maxSpawnDepth": 1,
+          "archiveAfterMinutes": 60
+        }
+      },
+      {
+        "id": "marketing-campaign",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/marketing-campaign",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "content-writer",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/content-writer",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "sales-lead-scraper",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/sales-lead-scraper",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "investor-relations",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/investor-relations",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "compliance",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/compliance",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "finance-ops",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/finance-ops",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "recruiting",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/recruiting",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "customer-support",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/customer-support",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "market-research",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/market-research",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "data-analyst",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/data-analyst",
+        "heartbeat": { "every": "0m" }
+      },
+      {
+        "id": "devops",
+        "workspace": "/home/<USER>/.openclaw/workspace/subagents/devops",
+        "heartbeat": { "every": "0m" }
+      }
+    ]
+  },
+  "skills": {
+    "load": {
+      "extraDirs": ["/home/<USER>/.openclaw/workspace/skills"]
     }
   },
   "gateway": {
