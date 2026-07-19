@@ -44,7 +44,7 @@ related: ["[[SPEC]]", "[[PRD]]", "[[AGENTS]]", "[[BOOTSTRAP]]"]
 ## File changes (the diff)
 
 > [!note]
-> v1.1.0 is **implemented** (2026-07-19, branch `v1.1.0-subagents`). This is the applied change set:
+> v1.1.0 is **implemented** (2026-07-19, branch `sub-agents`). This is the applied change set:
 > what was **A**dded / **M**odified / **D**eleted. The `openclaw.json` shapes below were verified
 > against the OpenClaw docs at build time (see the snippet). `db/`, `repos/`, and `scripts/` keep a
 > bare `.gitkeep` (not a README) so the folders stay in git.

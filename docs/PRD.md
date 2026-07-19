@@ -10,7 +10,7 @@ Everything personal/secret is a `<PLACEHOLDER>`; real secrets only in git-ignore
 
 ## Current state
 
-- **v1.1.0 built (2026-07-19)** on branch `v1.1.0-subagents` — awaiting user review/merge decision.
+- **v1.1.0 built (2026-07-19)** on branch `sub-agents` — awaiting user review/merge decision.
   `main` untouched (never merge/push without explicit instruction).
 - Spec: `docs/SPEC-v1.1.0.md` (status: implemented). Full system spec: `docs/SPEC.md`
   (git-ignored, local-only, regenerated with the roster).
@@ -56,6 +56,6 @@ Everything personal/secret is a `<PLACEHOLDER>`; real secrets only in git-ignore
 
 ## Next
 
-- User review of the `v1.1.0-subagents` branch; merge only on explicit instruction.
+- User review of the `sub-agents` branch; merge only on explicit instruction.
 - Optional/deferred: RAG pipelines, avatar, per-specialist proposals ledgers (on request),
   infra-specific skills stay out of the generalized config.
