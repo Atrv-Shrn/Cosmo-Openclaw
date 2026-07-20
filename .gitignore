@@ -17,5 +17,8 @@ workspace/db/*
 .DS_Store
 Thumbs.db
 
+# Living project docs (PRD + version specs) — kept local, never committed
+docs/
+
 # Generated reference doc (kept local, not published)
 SPEC.md
