@@ -7,15 +7,18 @@
 # OpenClaw runtime state (not part of the config)
 .openclaw/
 
-# repos/ + db/ hold external code and DB dumps — show the folder + README, ignore the contents
+# repos/ + db/ hold external code and DB dumps — show the folder, ignore the contents
 workspace/repos/*
-!workspace/repos/README.md
+!workspace/repos/.gitkeep
 workspace/db/*
-!workspace/db/README.md
+!workspace/db/.gitkeep
 
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+
+# Living project docs (PRD + version specs) — kept local, never committed
+docs/
 
 # Generated reference doc (kept local, not published)
 SPEC.md

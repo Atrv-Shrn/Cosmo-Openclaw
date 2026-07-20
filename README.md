@@ -162,6 +162,7 @@ is a placeholder.
     ├── BOOTSTRAP.md       first-run identity script (delete after setup)
     ├── .env.example       template for secrets (copy to .env, never committed)
     ├── skills/            the agent's core skills
+    ├── subagents/         specialist sub-agents (one folder each)
     ├── repos/             working copies of the real repos (contents git-ignored)
     ├── db/                disposable production DB dump (contents git-ignored)
     └── scripts/           permanent tools the agent builds for itself
@@ -177,7 +178,6 @@ Everything personal or secret is a placeholder. Replace each before deploying:
 | `<OWNER_NAME>` | Who the agent reports to |
 | `<SITE_URL>` | The site URL (used by custom monitoring skills) |
 | `<PRODUCT_REPO>` / `<WEBSITE_REPO>` | Repo names under `repos/` |
-| `<VERCEL_PROJECT>` | Vercel project name |
 | `<USER>` | Host username in the workspace path |
 | `<PROVIDER>/<MODEL>` | The model every session and sub-agent runs on |
 | `<GATEWAY_TOKEN>` | Gateway auth token (generate your own) |
@@ -187,6 +187,54 @@ Everything personal or secret is a placeholder. Replace each before deploying:
 
 Real secrets never live in git: copy `workspace/.env.example` → `workspace/.env` (git-ignored) and
 fill it in.
+
+## Sub-agent roster
+
+Beyond the Claude Code sub-agent it uses for code, Cosmo can hand non-code work to a set of
+**specialist sub-agents** in `workspace/subagents/<name>/`. Each one is a complete OpenClaw agent
+with its own constitution, soul, identity, behavioral memory, heartbeat file, and `skills/` folder,
+registered in `openclaw.json` so Cosmo spawns it by id:
+
+| Specialist | Mandate |
+|---|---|
+| `marketing-campaign` | plan & draft campaigns, positioning, launch plans |
+| `content-writer` | blog, social, newsletter, landing copy drafts |
+| `sales-lead-scraper` | find & enrich outbound leads |
+| `investor-relations` | investor updates, KPI summaries, fundraising prep |
+| `compliance` | legal / privacy / policy checks & flags |
+| `finance-ops` | burn, runway, invoices, budgets |
+| `recruiting` | source & screen candidates, JDs & outreach drafts |
+| `customer-support` | triage tickets, draft replies |
+| `market-research` | competitor & market sweeps |
+| `data-analyst` | reason over `db/` dumps & metrics |
+| `devops` | run commands & small ops scripts — never repo code |
+
+Common skills stay in the shared `workspace/skills/` (exposed to every agent once); each
+specialist's own `skills/` holds only its specialized procedures. Every specialist ships with its
+heartbeat off — turn on the ones you want in `openclaw.json` (or during first-run setup). The code
+boundary still holds: a specialist never edits repo code and never spawns Claude Code; anything
+code-shaped goes back through Cosmo.
+
+## Recommended MCP servers
+
+Cosmo intentionally ships **no** MCP servers: they're specific to your accounts and stack, and a
+bad one can crash the gateway. Install your own into `openclaw.json` (`mcp.servers`) — that file is
+the source of truth. What tends to pay off, per agent:
+
+| Agent | Recommended MCPs (install your own) | Enables |
+|---|---|---|
+| Cosmo (main) | filesystem, git, fetch/web, Context7, a deploy MCP (e.g. Vercel) | context + self-extension |
+| `marketing-campaign` | LinkedIn, X/Twitter, Canva | post & design campaigns |
+| `content-writer` | CMS/Notion, Google Docs | draft & publish copy |
+| `sales-lead-scraper` | LinkedIn/Apollo, web search | find & enrich leads |
+| `investor-relations` | Google Slides/Sheets, email | decks & updates |
+| `compliance` | web search, legal/policy DB | check & flag |
+| `finance-ops` | Stripe, accounting, Sheets | burn / runway / invoices |
+| `recruiting` | LinkedIn, ATS, email | source & outreach |
+| `customer-support` | Zendesk/Intercom, Gmail | triage & reply |
+| `market-research` | web search, X/Twitter | market / competitor sweeps |
+| `data-analyst` | Postgres/warehouse, Airtable | reason over data |
+| `devops` | GitHub, Docker, cloud CLI, monitoring | run ops, watch infra |
 
 ---
 

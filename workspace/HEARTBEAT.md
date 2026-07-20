@@ -12,6 +12,9 @@ openclaw.json (heartbeat `every` + `activeHours`). Default outcome of every tick
 1. Skim recent chat for loose ends (unanswered questions, ambiguous decisions, follow-ups) and
    repeated tasks (offer to build a tool/skill for them).
 2. Anything that clears THE BAR → run skills/proposals to log it (it dedupes and adds the OPEN line).
+3. Role-shaped work surfaced by a tick may be handed to the matching subagents/ specialist
+   (spawn by id; they may also run their own heartbeat if the user enabled it). Silence stays
+   the default.
 
 ## THE BAR
 Actionable, not already raised, worth a human's attention.
